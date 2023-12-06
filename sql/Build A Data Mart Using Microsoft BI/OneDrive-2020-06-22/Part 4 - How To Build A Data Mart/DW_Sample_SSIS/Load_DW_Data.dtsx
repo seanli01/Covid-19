@@ -1,0 +1,688 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/3/2013 9:57:40 AM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="SHERLOCK"
+  DTS:CreatorName="Sherlock\dingopole"
+  DTS:DTSID="{EFC87D95-9A5A-4DA5-B408-6E6B4452ADEB}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="14.0.3002.107"
+  DTS:LocaleID="3081"
+  DTS:ObjectName="Load_DW_Data"
+  DTS:PackageType="5"
+  DTS:VersionBuild="23"
+  DTS:VersionGUID="{8BB10589-F896-41A7-A27C-2D7AF509291B}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SHERLOCK\SQL2012_MULTIDIM.DW_Sample]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{2DC211F1-FAFE-42CE-AB29-431F4D951984}"
+      DTS:ObjectName="SHERLOCK\SQL2012_MULTIDIM.DW_Sample">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=hongbo;Initial Catalog=datawarehousesample;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Finish ETL Routine Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{33F8A84A-D587-4ADE-A8F1-BD040FF14F88}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Finish ETL Routine Sequence Container">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Finish ETL Routine Sequence Container\STEP 11 - Restore Foreign Key Constraints Execute SQL Task"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{6EE18CB0-9DC4-45F4-A7CA-491F2A96E95D}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="STEP 11 - Restore Foreign Key Constraints Execute SQL Task"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{2DC211F1-FAFE-42CE-AB29-431F4D951984}"
+              SQLTask:SqlStatementSource="&#xA;ALTER TABLE [dbo].[DimTitles] WITH CHECK ADD CONSTRAINT [FK_DimTitles_DimPublishers]&#xA;FOREIGN KEY ([PublisherKey]) REFERENCES [dbo].[DimPublishers] ([PublisherKey])&#xA;ALTER TABLE [dbo].[FactTitlesAuthors] WITH CHECK ADD CONSTRAINT [FK_FactTitlesAuthors_DimAuthors]&#xA;FOREIGN KEY ([AuthorKey]) REFERENCES [dbo].[DimAuthors] ([AuthorKey])&#xA;ALTER TABLE [dbo].[FactTitlesAuthors] WITH CHECK ADD CONSTRAINT [FK_FactTitlesAuthors_DimTitles]&#xA;FOREIGN KEY ([TitleKey]) REFERENCES [dbo].[DimTitles] ([TitleKey])&#xA;ALTER TABLE [dbo].[FactSales] WITH CHECK ADD CONSTRAINT [FK_FactSales_DimStores]&#xA;FOREIGN KEY ([StoreKey]) REFERENCES [dbo].[DimStores] ([Storekey])&#xA;ALTER TABLE [dbo].[FactSales] WITH CHECK ADD CONSTRAINT [FK_FactSales_DimTitles]&#xA;FOREIGN KEY ([TitleKey]) REFERENCES [dbo].[DimTitles] ([TitleKey])&#xA;ALTER TABLE [dbo].[FactSales] WITH CHECK ADD CONSTRAINT [FK_FactSales_DimDates]&#xA;FOREIGN KEY([OrderDateKey]) REFERENCES [dbo].[DimDates] ([DateKey])&#xA;ALTER TABLE [dbo].[DimTitles] WITH CHECK ADD CONSTRAINT [FK_DimTitles_DimDates]&#xA;FOREIGN KEY([PublishedDateKey]) REFERENCES [dbo].[DimDates] ([DateKey])" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Populate Dimension Objects Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{F2CFC3BE-C2EA-4D0F-B73B-0A5667D5DF1C}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Populate Dimension Objects Sequence Container">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Populate Dimension Objects Sequence Container\STEP 3 - Populate DimDates Execute SQL Task"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{79424C58-E53E-4698-9A50-14992766A558}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="STEP 3 - Populate DimDates Execute SQL Task"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{2DC211F1-FAFE-42CE-AB29-431F4D951984}"
+              SQLTask:SqlStatementSource="DECLARE @StartDate datetime&#x9;= '01/01/1990'&#xA;DECLARE @EndDate datetime&#x9;= '01/01/1995'&#xA;DECLARE @DateInProcess datetime&#xA;SET @DateInProcess&#x9;&#x9;= @StartDate&#xA;WHILE @DateInProcess&#x9;&lt; = @EndDate&#xA;BEGIN&#xA;&#x9;SET NOCOUNT ON&#xA;--LOOP THROUGH INDIVIDUAL DATES DEFINED BY TIME PERIOD&#xA;&#x9;&#x9;INSERT INTO DimDates (&#xA;&#x9;&#x9;[Date],&#xA;&#x9;&#x9;[DATENAME],&#xA;&#x9;&#x9;[Month],&#xA;&#x9;&#x9;[MonthName],&#xA;&#x9;&#x9;[QUARTER],&#xA;&#x9;&#x9;[QUARTERName],&#xA;&#x9;&#x9;[YEAR],&#xA;&#x9;&#x9;[YEARName])&#xA;&#x9;&#x9;VALUES (&#xA;&#x9;&#x9;@DateInProcess,&#xA;&#x9;&#x9;CONVERT(varchar(50), @DateInProcess, 110) + ', ' + DATENAME(WEEKDAY, @DateInProcess ),&#xA;&#x9;&#x9;MONTH( @DateInProcess),&#xA;&#x9;&#x9;CAST(YEAR(@DateInProcess) as nvarchar(4)) + ' - ' + DATENAME(MONTH, @DateInProcess ), &#xA;&#x9;&#x9;DATENAME( QUARTER, @DateInProcess ),&#xA;&#x9;&#x9;Cast(YEAR(@DateInProcess) as nvarchar(4)) + ' - ' + 'Q' + DATENAME(QUARTER, @DateInProcess ),&#xA;&#x9;&#x9;YEAR(@DateInProcess),&#xA;&#x9;&#x9;Cast(YEAR(@DateInProcess) as nvarchar(4)))&#xA;&#x9;SET @DateInProcess = DATEADD(DAY, 1, @DateInProcess)&#xA;END&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Populate Dimension Objects Sequence Container\STEP 4 - INSERT Dummy Data To Account For NULL Values Execute SQL Task"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{8E9E9AD5-8825-49DC-A38E-56DC0E80DAC0}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="STEP 4 - INSERT Dummy Data To Account For NULL Values Execute SQL Task"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{2DC211F1-FAFE-42CE-AB29-431F4D951984}"
+              SQLTask:SqlStatementSource="&#xA;SET IDENTITY_INSERT [DW_Sample].[dbo].[DimDates] ON&#xA;GO&#xA;Insert Into [DW_Sample].[dbo].[DimDates]&#xA;([DateKey],&#xA;[Date],&#xA;[DateName],&#xA;[Month],&#xA;[MonthName],&#xA;[Quarter],&#xA;[QuarterName],&#xA;[Year], [YearName])&#xA;SELECT&#xA;[DateKey]&#x9;&#x9;= -1,&#xA;[Date]&#x9;&#x9;&#x9;= CAST( '01/01/1900' as nvarchar(50)),&#xA;[DateName]&#x9;&#x9;= CAST('Unknown Day' as nvarchar(50)),&#xA;[Month]&#x9;&#x9;&#x9;= -1,&#xA;[MonthName]&#x9;&#x9;= CAST('Unknown Month' as nvarchar(50)),&#xA;[Quarter]&#x9;&#x9;= -1,&#xA;[QuarterName]&#x9;= CAST('Unknown Quarter' as nvarchar(50)),&#xA;[Year]&#x9;&#x9;&#x9;= -1,&#xA;[YearName]&#x9;&#x9;= CAST('Unknown Year' as nvarchar(50))&#xA;GO&#xA;SET IDENTITY_INSERT [DW_Sample].[dbo].[DimDates] OFF&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Populate Dimension Objects Sequence Container\STEP 5 - Populate DimAuthors Execute SQL Task"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{830F3AFD-D9A1-4E7F-9DAD-568CDE81FAB0}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="STEP 5 - Populate DimAuthors Execute SQL Task"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{2DC211F1-FAFE-42CE-AB29-431F4D951984}"
+              SQLTask:SqlStatementSource="INSERT INTO [DW_Sample].[dbo].[DimAuthors]&#xA;(AuthorId, AuthorName, AuthorState)&#xA;SELECT&#xA;[AuthorId]&#x9;&#x9;= CAST(au_id as nchar(12)),&#xA;[AuthorName]&#x9;= CAST((au_fname + ' ' + au_lname) as nvarchar(100)),&#xA;[AuthorState]&#x9;= CAST(state as nchar(12))&#xA;FROM Pubs.dbo.Authors&#xA;GO&#xA;SET IDENTITY_INSERT [DW_Sample].[dbo].[DimAuthors] ON&#xA;GO&#xA;INSERT INTO [DW_Sample].[dbo].[DimAuthors]&#xA;(AuthorKey, AuthorID, AuthorName, AuthorState)&#xA;SELECT -1, 'Unknown', 'Unknown', 'Unknown'&#xA;GO&#xA;SET IDENTITY_INSERT [DW_Sample].[dbo].[DimAuthors] OFF&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Populate Dimension Objects Sequence Container\STEP 6 - Populate DimPublishers Execute SQL Task"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{7C9F5BAE-1800-4864-ACF4-10428BA6D652}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="STEP 6 - Populate DimPublishers Execute SQL Task"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{2DC211F1-FAFE-42CE-AB29-431F4D951984}"
+              SQLTask:SqlStatementSource="INSERT INTO [DW_Sample].[dbo].[DimPublishers]&#xA;(PublisherId, PublisherName)&#xA;SELECT&#xA;[PublisherId]&#x9;= CAST(pub_id as nchar(10)),&#xA;[PublisherName] = CAST(pub_name as nvarchar(50))&#xA;FROM pubs.dbo.publishers&#xA;GO&#xA;SET IDENTITY_INSERT [DW_Sample].[dbo].[DimPublishers] ON&#xA;GO&#xA;INSERT INTO [DW_Sample].[dbo].[DimPublishers]&#xA;(PublisherKey, PublisherId, PublisherName)&#xA;SELECT -1, 'Unknown', 'Unknown'&#xA;GO&#xA;SET IDENTITY_INSERT [DW_Sample].[dbo].[DimPublishers] OFF&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Populate Dimension Objects Sequence Container\STEP 7 - Populate DimTitles Execute SQL Task"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{D9403776-E644-4CD3-B5B5-D74740909392}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="STEP 7 - Populate DimTitles Execute SQL Task"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{2DC211F1-FAFE-42CE-AB29-431F4D951984}"
+              SQLTask:SqlStatementSource="&#xA;INSERT INTO [DW_Sample].[dbo].[DimTitles]&#xA;(TitleId, TitleName, TitleType, PublisherKey, TitlePrice, PublishedDateKey)&#xA;SELECT&#xA;[TitleId]&#x9;&#x9;&#x9;= CAST([title_id] AS nvarchar(10)),&#xA;[TitleName]&#x9;&#x9;&#x9;= CAST([title] AS nvarchar(100)),&#xA;[TitleType]&#x9;&#x9;&#x9;= CASE CAST([type] AS nvarchar(50))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;WHEN 'business'&#x9;&#x9;THEN N'Business'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;WHEN 'mod_cook'&#x9;&#x9;THEN N'Modern Cooking'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;WHEN 'popular_comp' THEN N'Popular Computing'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;WHEN 'psychology'&#x9;THEN N'Psychology'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;WHEN 'trad_cook'&#x9;THEN N'Traditional Cooking'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;WHEN 'UNDECIDED'&#x9;THEN N'Undecided'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;END, &#xA;[PublisherKey]&#x9;&#x9;= ISNULL([DW_Sample].[dbo].[DimPublishers].[PublisherKey], -1),&#xA;[TitlePrice]&#x9;&#x9;= CAST(ISNULL([price], -1) AS DECIMAL(18, 4)),&#xA;[PublishedDateKey]&#x9;= ISNULL([DW_Sample].[dbo].[DimDates].[DateKey], -1)&#xA;FROM [Pubs].[dbo].[Titles] Join [DW_Sample].[dbo].[DimPublishers]&#xA;ON [Pubs].[dbo].[Titles].[pub_id] = [DW_Sample].[dbo].[DimPublishers].[PublisherId]&#xA;Left Join [DW_Sample].[dbo].[DimDates] &#xA;ON [Pubs].[dbo].[Titles].[pubdate] = [DW_Sample].[dbo].[DimDates].[Date]&#xA;GO&#xA;SET IDENTITY_INSERT [DW_Sample].[dbo].[DimTitles] ON&#xA;GO&#xA;INSERT INTO [DW_Sample].[dbo].[DimTitles]&#xA;(TitleKey, TitleID, TitleName, TitleType, PublisherKey, TitlePrice, PublishedDateKey)&#xA;SELECT -1, 'Unknown', 'Unknown', 'Unknown', -1, -1, -1&#xA;GO&#xA;SET IDENTITY_INSERT [DW_Sample].[dbo].[DimTitles] OFF&#xA;GO&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Populate Dimension Objects Sequence Container\STEP 8 - Populate DimStores Execute SQL Task"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{C203EB4D-8051-4921-83C9-47E3C541998F}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="STEP 8 - Populate DimStores Execute SQL Task"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{2DC211F1-FAFE-42CE-AB29-431F4D951984}"
+              SQLTask:SqlStatementSource="USE DW_Sample&#xA;INSERT INTO [DW_Sample].[dbo].[DimStores]&#xA;(StoreID, StoreName, StoreAddress, StoreCity, StoreState, StoreZip, IsCurrent)&#xA;SELECT&#xA;StoreID, StoreName, StoreAddress, StoreCity, StoreState, StoreZip, 1&#xA;FROM&#xA;    (MERGE DimStores AS Target&#xA;        USING&#xA;            (SELECT&#xA;&#x9;&#x9;&#x9;[StoreId]&#x9;&#x9;= CAST(stor_id as nchar(12)),&#xA;&#x9;&#x9;&#x9;[StoreName]&#x9;&#x9;= CAST(stor_name as nvarchar(50)),&#xA;&#x9;&#x9;&#x9;[StoreAddress]&#x9;= CAST(stor_address as nvarchar (80)),&#xA;&#x9;&#x9;&#x9;[StoreCity]&#x9;&#x9;= CAST(city as nvarchar (40)),&#xA;&#x9;&#x9;&#x9;[StoreState]&#x9;= CAST(state as nvarchar (12)),&#xA;&#x9;&#x9;&#x9;[StoreZip]&#x9;&#x9;= CAST(zip as nvarchar (12))&#xA;&#xA;&#x9;&#x9;&#x9;FROM Pubs.dbo.Stores)&#xA;            AS [Source]&#xA;                    ON Target.StoreID = Source.StoreID AND Target.IsCurrent = 1&#xA;                    WHEN MATCHED AND&#xA;            (Target.StoreName &lt;&gt; [Source].StoreName)&#xA;                THEN UPDATE SET&#xA;                IsCurrent = 0&#xA;    WHEN NOT MATCHED BY TARGET&#xA;            THEN INSERT&#xA;            (StoreID, StoreName, StoreAddress, StoreCity, StoreState, StoreZip, IsCurrent) &#xA;            VALUES&#xA;            ([Source].StoreID,&#xA;&#x9;&#x9;&#x9;[Source].StoreName,&#xA;&#x9;&#x9;&#x9;[Source].StoreAddress,&#xA;&#x9;&#x9;&#x9;[Source].StoreCity,&#xA;&#x9;&#x9;&#x9;[Source].StoreState,&#xA;&#x9;&#x9;&#x9;[Source].StoreZip,&#xA;&#x9;&#x9;&#x9;1)&#xA;    WHEN NOT MATCHED BY SOURCE AND Target.IsCurrent = 1&#xA;            THEN UPDATE&#xA;            SET IsCurrent = 0&#xA;    OUTPUT $action as Action,[Source].*) AS MergeOutput&#xA;WHERE MergeOutput.Action = 'UPDATE'&#xA;AND StoreName IS NOT NULL&#xA;GO&#xA;&#xA;UPDATE [DW_Sample].[dbo].[DimStores] &#xA;SET StoreAddress = source.stor_address&#xA;FROM dimstores target INNER JOIN Pubs.dbo.Stores source &#xA;ON target.StoreId = source.stor_id&#xA;AND target.storeaddress &lt;&gt; source.stor_address&#xA;AND target.IsCurrent = 1 &#xA;&#xA;UPDATE [DW_Sample].[dbo].[DimStores] &#xA;SET StoreCity = source.city&#xA;FROM dimstores target INNER JOIN Pubs.dbo.Stores source &#xA;ON target.StoreId = source.stor_id&#xA;AND target.storecity &lt;&gt; source.city&#xA;AND target.IsCurrent = 1 &#xA;&#xA;UPDATE [DW_Sample].[dbo].[DimStores] &#xA;SET StoreState = source.State&#xA;FROM dimstores target INNER JOIN Pubs.dbo.Stores source &#xA;ON target.StoreId = source.stor_id&#xA;AND target.storeState &lt;&gt; source.state&#xA;AND target.IsCurrent = 1 &#xA;&#xA;UPDATE [DW_Sample].[dbo].[DimStores] &#xA;SET StoreZip = source.Zip&#xA;FROM dimstores target INNER JOIN Pubs.dbo.Stores source &#xA;ON target.StoreId = source.stor_id&#xA;AND target.StoreZip &lt;&gt; source.Zip&#xA;AND target.IsCurrent = 1 &#xA;&#xA;BEGIN&#xA;&#x9;IF EXISTS (SELECT 1 FROM [DW_Sample].[dbo].[DimStores] WHERE StoreKey = -1)&#xA;&#x9;&#x9;BEGIN&#xA;&#x9;&#x9;&#x9;RETURN&#xA;&#x9;&#x9;END&#xA;&#x9;ELSE&#xA;&#x9;&#x9;BEGIN&#xA;&#x9;&#x9;SET IDENTITY_INSERT [DW_Sample].[dbo].[DimStores] ON&#xA;&#x9;&#x9;INSERT INTO [DW_Sample].[dbo].[DimStores]&#xA;&#x9;&#x9;(StoreKey, StoreID, StoreName, StoreAddress, StoreCity, StoreState, StoreZip, IsCurrent)&#xA;&#x9;&#x9;SELECT -1, 'Unknown', 'Unknown', 'Unknown', 'Unknown', 'Unknown', 'Unknown',-1&#xA;&#x9;&#x9;SET IDENTITY_INSERT [DW_Sample].[dbo].[DimStores] OFF&#xA;&#x9;&#x9;END&#xA;END" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Populate Dimension Objects Sequence Container.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{190F1BAC-186F-42F6-AAEF-321196085081}"
+          DTS:From="Package\Populate Dimension Objects Sequence Container\STEP 3 - Populate DimDates Execute SQL Task"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Populate Dimension Objects Sequence Container\STEP 4 - INSERT Dummy Data To Account For NULL Values Execute SQL Task" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Populate Dimension Objects Sequence Container.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{AEE43821-8346-4CA1-8BAE-5CF7D355B678}"
+          DTS:From="Package\Populate Dimension Objects Sequence Container\STEP 5 - Populate DimAuthors Execute SQL Task"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Populate Dimension Objects Sequence Container\STEP 6 - Populate DimPublishers Execute SQL Task" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Populate Dimension Objects Sequence Container.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{96221766-EAA9-42B2-A401-D6836F8ED204}"
+          DTS:From="Package\Populate Dimension Objects Sequence Container\STEP 7 - Populate DimTitles Execute SQL Task"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\Populate Dimension Objects Sequence Container\STEP 8 - Populate DimStores Execute SQL Task" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Populate Dimension Objects Sequence Container.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{D7E9D6E6-58B1-406D-AC23-85C06F3B36D5}"
+          DTS:From="Package\Populate Dimension Objects Sequence Container\STEP 6 - Populate DimPublishers Execute SQL Task"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\Populate Dimension Objects Sequence Container\STEP 7 - Populate DimTitles Execute SQL Task" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Populate Dimension Objects Sequence Container.PrecedenceConstraints[Constraint 4]"
+          DTS:CreationName=""
+          DTS:DTSID="{1AFA39AF-B683-44AC-A392-A2A6C8D864F0}"
+          DTS:From="Package\Populate Dimension Objects Sequence Container\STEP 4 - INSERT Dummy Data To Account For NULL Values Execute SQL Task"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 4"
+          DTS:To="Package\Populate Dimension Objects Sequence Container\STEP 5 - Populate DimAuthors Execute SQL Task" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Populate Fact Objects Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{F2097563-3159-40DF-8227-F058575FF5FA}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Populate Fact Objects Sequence Container">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Populate Fact Objects Sequence Container\STEP 10 - Populate FactSales Execute SQL Task"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{B042711D-9419-4FF0-8E44-3A87CAF0AACE}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="STEP 10 - Populate FactSales Execute SQL Task"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{2DC211F1-FAFE-42CE-AB29-431F4D951984}"
+              SQLTask:SqlStatementSource="INSERT INTO [DW_Sample].[dbo].[FactSales]&#xA;(OrderNumber, OrderDateKey, TitleKey, StoreKey, SalesQuantity)&#xA;SELECT&#xA;[OrderNumber]&#x9;= CAST(sales.ord_num AS nvarchar(50)),&#xA;[OrderDateKey]&#x9;= ISNULL(dates.DateKey, -1),&#xA;[TitleKey]&#x9;&#x9;= ISNULL(titles.TitleKey, -1),&#xA;[StoreKey]&#x9;&#x9;= ISNULL(stores.StoreKey, -1),&#xA;[SalesQuantity] = sales.Qty&#xA;FROM pubs.dbo.sales AS sales&#xA;JOIN DW_Sample.dbo.DimDates AS dates&#xA;ON sales.ord_date = dates.[date]&#xA;JOIN DW_Sample.dbo.DimTitles AS titles&#xA;ON sales.Title_id = titles.TitleId&#xA;JOIN DW_Sample.dbo.DimStores AS stores&#xA;ON sales.Stor_id = stores.StoreId&#xA;WHERE NOT EXISTS&#x9;(SELECT TOP 1 'I already exist' FROM &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;[DW_Sample].[dbo].[FactSales] as fact&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;WHERE sales.ord_num&#x9;= fact.OrderNumber&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;AND dates.DateKey&#x9;= fact.OrderDateKey&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;AND titles.TitleKey = fact.TitleKey&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;AND stores.StoreKey = fact.StoreKey)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Populate Fact Objects Sequence Container\STEP 9 - Populate FactTitlesAuthors Execute SQL Task"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{ABED4BB1-48E3-491C-84D5-8A93F085C9CA}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="STEP 9 - Populate FactTitlesAuthors Execute SQL Task"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{2DC211F1-FAFE-42CE-AB29-431F4D951984}"
+              SQLTask:SqlStatementSource="&#xA;&#xA;/*&#xA;STEP 8&#xA;*/&#xA;INSERT INTO [DW_Sample].[dbo].[FactTitlesAuthors]&#xA;(TitleKey, AuthorKey, AuthorOrder)&#xA;SELECT&#xA;[TitleKey]&#x9;&#x9;= ISNULL(titles.TitleKey, -1),&#xA;[AuthorKey]&#x9;&#x9;= ISNULL(authors.AuthorKey, -1),&#xA;[AuthorOrder]&#x9;= au_ord&#xA;FROM pubs.dbo.titleauthor AS titleauthor&#xA;JOIN DW_Sample.dbo.DimTitles AS titles&#xA;ON titleauthor.Title_id = titles.TitleId&#xA;JOIN DW_Sample.dbo.DimAuthors AS authors&#xA;ON titleauthor.Au_id = authors.AuthorId&#xA;WHERE NOT EXISTS&#x9;(SELECT TOP 1 'I already exist' FROM&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;[DW_Sample].[dbo].[FactTitlesAuthors] fact&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;WHERE fact.AuthorKey&#x9;= authors.AuthorKey&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;AND fact.TitleKey&#x9;&#x9;= titles.TitleKey)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Populate Fact Objects Sequence Container.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{91C70691-2DDC-4D38-8370-96A11F177FB8}"
+          DTS:From="Package\Populate Fact Objects Sequence Container\STEP 9 - Populate FactTitlesAuthors Execute SQL Task"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Populate Fact Objects Sequence Container\STEP 10 - Populate FactSales Execute SQL Task" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Prepare ETL Routine Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{6EDCED2D-76A9-435A-9247-2F4561F69CCD}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Prepare ETL Routine Sequence Container">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Prepare ETL Routine Sequence Container\STEP 1 - Drop Foreign Keys Execute SQL Task"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{09EC413A-B6F3-4691-9689-6FB31DF73C3A}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="STEP 1 - Drop Foreign Keys Execute SQL Task"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{2DC211F1-FAFE-42CE-AB29-431F4D951984}"
+              SQLTask:SqlStatementSource="ALTER TABLE [dbo].[DimTitles] DROP CONSTRAINT [FK_DimTitles_DimPublishers]&#xA;ALTER TABLE [dbo].[FactTitlesAuthors] DROP CONSTRAINT [FK_FactTitlesAuthors_DimAuthors]&#xA;ALTER TABLE [dbo].[FactTitlesAuthors] DROP CONSTRAINT [FK_FactTitlesAuthors_DimTitles]&#xA;ALTER TABLE [dbo].[FactSales] DROP CONSTRAINT [FK_FactSales_DimStores]&#xA;ALTER TABLE [dbo].[FactSales] DROP CONSTRAINT [FK_FactSales_DimTitles]&#xA;ALTER TABLE [dbo].[FactSales] DROP CONSTRAINT [FK_FactSales_DimDates]&#xA;ALTER TABLE [dbo].[DimTitles] DROP CONSTRAINT [FK_DimTitles_DimDates]&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Prepare ETL Routine Sequence Container\STEP 2 - Truncate Tables Execute SQL Task"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{AF50D2D5-4CB4-4A94-8A7D-F16C64616F04}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="STEP 2 - Truncate Tables Execute SQL Task"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{2DC211F1-FAFE-42CE-AB29-431F4D951984}"
+              SQLTask:SqlStatementSource="--&#xA;TRUNCATE TABLE [dbo].[FactSales]&#xA;--&#xA;TRUNCATE TABLE [dbo].[FactTitlesAuthors]&#xA;TRUNCATE TABLE [dbo].[DimTitles]&#xA;TRUNCATE TABLE [dbo].[DimPublishers]&#xA;--&#xA;TRUNCATE TABLE [dbo].[DimStores]&#xA;TRUNCATE TABLE [dbo].[DimAuthors]&#xA;--&#xA;TRUNCATE TABLE [dbo].[DimDates]&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Prepare ETL Routine Sequence Container.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{FD771176-68B8-45AF-BA54-D8432FB9D787}"
+          DTS:From="Package\Prepare ETL Routine Sequence Container\STEP 1 - Drop Foreign Keys Execute SQL Task"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Prepare ETL Routine Sequence Container\STEP 2 - Truncate Tables Execute SQL Task" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{2C77C9A5-6B3F-458C-9963-8835CDA44162}"
+      DTS:From="Package\Prepare ETL Routine Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Populate Dimension Objects Sequence Container" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{53384E06-429F-4833-ABF5-429CC4C0AADD}"
+      DTS:From="Package\Populate Dimension Objects Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Populate Fact Objects Sequence Container" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{D2C92A4E-B621-4C89-9332-C440F90BE1C4}"
+      DTS:From="Package\Populate Fact Objects Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Finish ETL Routine Sequence Container" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="367,42"
+          Id="Package\Finish ETL Routine Sequence Container\STEP 11 - Restore Foreign Key Constraints Execute SQL Task"
+          TopLeft="17,27" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="403,127"
+          Size="403,170"
+          Id="Package\Finish ETL Routine Sequence Container"
+          TopLeft="1371.14285714286,210.571428571428" />
+        <NodeLayout
+          Size="340,42"
+          Id="Package\Populate Dimension Objects Sequence Container\STEP 3 - Populate DimDates Execute SQL Task"
+          TopLeft="29.1111111111111,15.7777777777778" />
+        <NodeLayout
+          Size="340,42"
+          Id="Package\Populate Dimension Objects Sequence Container\STEP 4 - INSERT Dummy Data To Account For NULL Values Execute SQL Task"
+          TopLeft="31,82" />
+        <NodeLayout
+          Size="338,42"
+          Id="Package\Populate Dimension Objects Sequence Container\STEP 5 - Populate DimAuthors Execute SQL Task"
+          TopLeft="31.2222222222223,150.555555555556" />
+        <NodeLayout
+          Size="340,42"
+          Id="Package\Populate Dimension Objects Sequence Container\STEP 6 - Populate DimPublishers Execute SQL Task"
+          TopLeft="29,219" />
+        <NodeLayout
+          Size="339,42"
+          Id="Package\Populate Dimension Objects Sequence Container\STEP 7 - Populate DimTitles Execute SQL Task"
+          TopLeft="30,290" />
+        <NodeLayout
+          Size="340,42"
+          Id="Package\Populate Dimension Objects Sequence Container\STEP 8 - Populate DimStores Execute SQL Task"
+          TopLeft="28.7777777777778,363.888888888889" />
+        <EdgeLayout
+          Id="Package\Populate Dimension Objects Sequence Container.PrecedenceConstraints[Constraint]"
+          TopLeft="200.055555555556,57.7777777777778">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,24.2222222222222"
+              Start="0,0"
+              End="0,16.7222222222222">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.7222222222222" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Populate Dimension Objects Sequence Container.PrecedenceConstraints[Constraint 1]"
+          TopLeft="199.611111111111,192.555555555556">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,26.444444444444"
+              Start="0,0"
+              End="0,18.944444444444">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.944444444444" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Populate Dimension Objects Sequence Container.PrecedenceConstraints[Constraint 2]"
+          TopLeft="199.138888888889,332">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.888888888889"
+              Start="0,0"
+              End="0,24.388888888889">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.388888888889" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Populate Dimension Objects Sequence Container.PrecedenceConstraints[Constraint 3]"
+          TopLeft="199.25,261">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29"
+              Start="0,0"
+              End="0,21.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Populate Dimension Objects Sequence Container.PrecedenceConstraints[Constraint 4]"
+          TopLeft="200.611111111111,124">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,26.555555555556"
+              Start="0,0"
+              End="0,19.055555555556">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.055555555556" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="421,440"
+          Size="421,483"
+          Id="Package\Populate Dimension Objects Sequence Container"
+          TopLeft="432.52380952381,30.2777777777795" />
+        <NodeLayout
+          Size="334,42"
+          Id="Package\Populate Fact Objects Sequence Container\STEP 10 - Populate FactSales Execute SQL Task"
+          TopLeft="38,87" />
+        <NodeLayout
+          Size="335,42"
+          Id="Package\Populate Fact Objects Sequence Container\STEP 9 - Populate FactTitlesAuthors Execute SQL Task"
+          TopLeft="37,16.5" />
+        <EdgeLayout
+          Id="Package\Populate Fact Objects Sequence Container.PrecedenceConstraints[Constraint]"
+          TopLeft="204.75,58.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28.5"
+              Start="0,0"
+              End="0,21">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="393,184"
+          Size="393,227"
+          Id="Package\Populate Fact Objects Sequence Container"
+          TopLeft="932.968253968254,180.476190476187" />
+        <NodeLayout
+          Size="297,42"
+          Id="Package\Prepare ETL Routine Sequence Container\STEP 1 - Drop Foreign Keys Execute SQL Task"
+          TopLeft="19,15" />
+        <NodeLayout
+          Size="293,42"
+          Id="Package\Prepare ETL Routine Sequence Container\STEP 2 - Truncate Tables Execute SQL Task"
+          TopLeft="21,88" />
+        <EdgeLayout
+          Id="Package\Prepare ETL Routine Sequence Container.PrecedenceConstraints[Constraint]"
+          TopLeft="167.5,57">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31"
+              Start="0,0"
+              End="0,23.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="331,185"
+          Size="331,228"
+          Id="Package\Prepare ETL Routine Sequence Container"
+          TopLeft="37.2857142857143,32.1428571428571" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="368.285714285714,146.142857142857">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="64.2380952380955,125.634920634922"
+              Start="0,0"
+              End="56.7380952380955,125.634920634922">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="28.1190476190477,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="28.1190476190477,0"
+                    Point2="32.1190476190477,0"
+                    Point3="32.1190476190477,4" />
+                  <mssgle:LineSegment
+                    End="32.1190476190477,121.634920634922" />
+                  <mssgle:CubicBezierSegment
+                    Point1="32.1190476190477,121.634920634922"
+                    Point2="32.1190476190477,125.634920634922"
+                    Point3="36.1190476190477,125.634920634922" />
+                  <mssgle:LineSegment
+                    End="56.7380952380955,125.634920634922" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="853.52380952381,271.777777777779">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="79.4444444444442,22.1984126984077"
+              Start="0,0"
+              End="71.9444444444442,22.1984126984077">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="35.7222222222221,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="35.7222222222221,0"
+                    Point2="39.7222222222221,0"
+                    Point3="39.7222222222221,4" />
+                  <mssgle:LineSegment
+                    End="39.7222222222221,18.1984126984077" />
+                  <mssgle:CubicBezierSegment
+                    Point1="39.7222222222221,18.1984126984077"
+                    Point2="39.7222222222221,22.1984126984077"
+                    Point3="43.7222222222221,22.1984126984077" />
+                  <mssgle:LineSegment
+                    End="71.9444444444442,22.1984126984077" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="1325.96825396825,294.773809523808">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="45.1746031746034,0"
+              Start="0,0"
+              End="37.6746031746034,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="37.6746031746034,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

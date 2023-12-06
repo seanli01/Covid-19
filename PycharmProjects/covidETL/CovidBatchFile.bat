@@ -1,0 +1,1 @@
+"C:\Users\Admin\PycharmProjects\covidETL\venv\Scripts\python.exe" "C:\Users\Admin\PycharmProjects\covidETL\CovidETLRun.py"

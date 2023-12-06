@@ -1,0 +1,19 @@
+'''
+        sqlFile2 = open("PopFactCovidNewCases.sql")
+        print('1')
+        stringSq2 = sqlFile2.read()
+        print('2')
+        cursor.execute(stringSq2)
+        print('3')
+
+
+        sqlFile = open("PopFactCovidNewDeaths.sql")
+        stringSql = sqlFile.read()
+        cursor.execute(stringSql)
+
+
+
+        sqlFile = open("PopFactCovidTotDeaths.sql")
+        stringSql = sqlFile.read()
+        cursor.execute(stringSql)
+'''
